@@ -1,0 +1,92 @@
+# Name: [Angel Gomez]
+# Course: [CIS261]
+# Assignment: Week 4 Country List Program
+# Description: A menu-driven program to view, add, and delete countries.
+
+def show_menu():
+    """
+    Display the menu of commands to the user.
+    """
+    print("\nThe Country List Program")
+    print("\nCOMMAND MENU")
+    print("view - View a country")
+    print("add  - Add a country")
+    print("del  - Delete a country")
+    print("exit - Exit program")
+
+
+def create_country_dict():
+    """
+    Initialize and return the dictionary of countries.
+    """
+    return {
+        "USA": "United States",
+        "CAN": "Canada",
+        "MEX": "Mexico",
+        "BRA": "Brazil",
+        "JPN": "Japan"
+    }
+
+
+def view_country(countries: dict):
+    """
+    Display available country codes and prompt the user to select one.
+    """
+    print("\nDictionary Keys:")
+    for code in countries:
+        print(code)
+    key = input("Enter a key: ").strip().upper()
+    if key in countries:
+        print(f"Country: {countries[key]}")
+    else:
+        print(f"{key} not found.")
+
+
+def add_country(countries: dict):
+    """
+    Prompt for a new country abbreviation and name, then add it.
+    """
+    abbreviation = input("Enter country abbreviation: ").strip().upper()
+    if abbreviation in countries:
+        print(f"{abbreviation} already exists.")
+        return
+    name = input("Enter country name: ").strip()
+    if name:
+        countries[abbreviation] = name
+        print(f"{name} was added.")
+    else:
+        print("No name entered; nothing added.")
+
+
+def delete_country(countries: dict):
+    """
+    Prompt for a country abbreviation and delete it if present.
+    """
+    abbreviation = input("Enter country abbreviation: ").strip().upper()
+    if abbreviation in countries:
+        name = countries.pop(abbreviation)
+        print(f"{name} was deleted.")
+    else:
+        print(f"{abbreviation} not found; nothing deleted.")
+
+
+def main():
+    countries = create_country_dict()
+    show_menu()
+    while True:
+        command = input("\nCommand: ").strip().lower()
+        if command == "view":
+            view_country(countries)
+        elif command == "add":
+            add_country(countries)
+        elif command == "del":
+            delete_country(countries)
+        elif command == "exit":
+            print("Bye!")
+            break
+        else:
+            print("Not a valid command. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
